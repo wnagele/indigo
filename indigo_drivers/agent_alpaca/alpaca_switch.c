@@ -591,6 +591,9 @@ long indigo_alpaca_switch_get_command(indigo_alpaca_device *alpaca_device, int v
 	if (!strcmp(command, "getswitchname") || !strcmp(command, "getswitchdescription")) {
 		char *value = NULL;
 		indigo_alpaca_error result = alpaca_get_switchname(alpaca_device, version, id, &value);
+		if (!strcmp(command, "getswitchdescription")) {
+			return indigo_alpaca_append_value_string(buffer, buffer_length, "", result);
+		}
 		return indigo_alpaca_append_value_string(buffer, buffer_length, value, result);
 	}
 	if (!strcmp(command, "getswitch")) {
